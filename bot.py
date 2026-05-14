@@ -1,4 +1,4 @@
-## “””
+## """
 Polymarket Copy Trading Bot
 
 Copies trades from multiple target wallets.
@@ -20,13 +20,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PRIVATE_KEY = os.environ[“PRIVATE_KEY”]   # Set in Railway/Render dashboard
+PRIVATE_KEY = os.environ["PRIVATE_KEY"]   # Set in Railway/Render dashboard
 
 # ── Config ───────────────────────────────────────────────────────────────────
 
 TARGET_WALLETS = [
-“0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82”,
-“0x89b5cdaaa4866c1e738406712012a630b4078beb”,
+"0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82",
+"0x89b5cdaaa4866c1e738406712012a630b4078beb",
 ]
 
 TRADE_SIZE_USD          = 0.50  # Fixed $0.50 per copied trade
@@ -34,15 +34,15 @@ POLL_INTERVAL           = 3     # Poll every 3 seconds
 WALLET_DELAY            = 0.5   # Small delay between wallet requests
 REQUEST_TIMEOUT         = 5     # Timeout per API request (seconds)
 MAX_CONSECUTIVE_ERRORS  = 10    # Skip a wallet temporarily after this many errors
-CLOB_HOST               = “https://clob.polymarket.com”
-DATA_API                = “https://data-api.polymarket.com”
-GAMMA_API               = “https://gamma-api.polymarket.com”
+CLOB_HOST               = "https://clob.polymarket.com"
+DATA_API                = "https://data-api.polymarket.com"
+GAMMA_API               = "https://gamma-api.polymarket.com"
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
 logging.basicConfig(
 level=logging.INFO,
-format=”%(asctime)s [%(levelname)s] %(message)s”,
+format=”%(asctime)s [%(levelname)s] %(message)s",
 datefmt=”%Y-%m-%d %H:%M:%S”,
 )
 log = logging.getLogger(**name**)
@@ -61,13 +61,13 @@ seen_trade_ids: set = set()
 consecutive_errors: dict = {w: 0 for w in TARGET_WALLETS}
 
 def get_recent_trades(wallet: str) -> list:
-“””
+"""
 Fetch recent trades for a wallet using the Polymarket data API.
 Tries /trades endpoint first, falls back to /activity.
-“””
+"""
 endpoints = [
-f”{DATA_API}/trades?maker={wallet}&limit=10”,
-f”{DATA_API}/activity?user={wallet}&limit=10”,
+f"{DATA_API}/trades?maker={wallet}&limit=10",
+f"{DATA_API}/activity?user={wallet}&limit=10",
 ]
 
 ```
@@ -235,8 +235,7 @@ log.info(
 place_order(fields["market"], fields["token_id"], fields["side"], fields["price"])
 ```
 
-def copy_trades():
-“”“Poll each target wallet and copy any new trades.”””
+def copy_trades():"""Poll each target wallet and copy any new trades"""
 for wallet in TARGET_WALLETS:
 
 ```
@@ -252,32 +251,32 @@ for wallet in TARGET_WALLETS:
             process_trade(trade, wallet)
 
     time.sleep(WALLET_DELAY)
-```
+'''
 
 def seed_seen_trades():
-“””
+"""
 On startup, mark all existing trades as seen so the bot only
 copies trades that happen AFTER it launches.
-“””
-log.info(“🌱 Seeding seen trades to avoid copying historical activity…”)
+"""
+log.info("🌱 Seeding seen trades to avoid copying historical activity…")
 for wallet in TARGET_WALLETS:
 trades = get_recent_trades(wallet)
 for trade in trades:
 fields = extract_trade_fields(trade)
 if fields:
-seen_trade_ids.add(fields[“trade_id”])
+seen_trade_ids.add(fields["trade_id"])
 time.sleep(WALLET_DELAY)
-log.info(f”   Seeded {len(seen_trade_ids)} existing trade ID(s).”)
+log.info(f"   Seeded {len(seen_trade_ids)} existing trade ID(s).")
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
-if **name** == “**main**”:
-log.info(“🚀 Polymarket Copy Bot starting up…”)
-log.info(f”   Watching wallets: {[w[:8] + ‘…’ for w in TARGET_WALLETS]}”)
-log.info(f”   Fixed trade size: ${TRADE_SIZE_USD}”)
-log.info(f”   Poll interval:    {POLL_INTERVAL}s”)
+if __name__ == "__main__":
+log.info("🚀 Polymarket Copy Bot starting up…")
+log.info(f"   Watching wallets: {[w[:8] + '…' for w in TARGET_WALLETS]}")
+log.info(f"   Fixed trade size: ${TRADE_SIZE_USD}")
+log.info(f"   Poll interval:    {POLL_INTERVAL}s")
 
-```
+'''
 seed_seen_trades()
 
 log.info(f"✅ Bot running. Polling every {POLL_INTERVAL} seconds.\n")
@@ -289,4 +288,4 @@ while True:
 
     sleep_time = max(0, POLL_INTERVAL - elapsed)
     time.sleep(sleep_time)
-```
+'mm
