@@ -89,7 +89,7 @@ for url in endpoints:
 return []
 
 def extract_trade_fields(trade: dict):
-"""Normalize a trade object into the fields we need."""
+   """Normalize a trade object into the fields we need."""
 token_id = (
 trade.get("asset_id")
 or trade.get("tokenId")
