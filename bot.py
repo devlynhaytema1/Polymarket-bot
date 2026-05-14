@@ -102,16 +102,15 @@ for url in endpoints:
         consecutive_errors[wallet] += 1
         log.error(f"❌ Error fetching trades for {wallet[:8]}...: {e}")
 
-return []
-```
+return []'''
 
 def extract_trade_fields(trade: dict) -> dict | None:
-“””
+"""
 Normalize a trade object from Polymarket’s API into the fields we need.
 Handles multiple possible response structures.
-“””
+"""
 
-```
+'mm
 # ── Try to extract token/asset ID ────────────────────────────────────────
 token_id = (
     trade.get("asset_id")
