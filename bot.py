@@ -206,7 +206,7 @@ place_order(fields["market"], fields["token_id"], fields["side"], fields["price"
 
 
 def copy_trades():
-“”“Poll each target wallet and copy any new trades.”””
+"""Poll each target wallet and copy any new trades."""
 for wallet in TARGET_WALLETS:
 
 
