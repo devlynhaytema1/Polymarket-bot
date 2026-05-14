@@ -55,7 +55,7 @@ endpoints = [
 f"{DATA_API}/trades?maker={wallet}&limit=10",
 f"{DATA_API}/activity?user={wallet}&limit=10",
 ]
-'''
+
 for url in endpoints:
     try:
         resp = requests.get(url, timeout=REQUEST_TIMEOUT)
