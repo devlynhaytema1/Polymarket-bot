@@ -151,7 +151,7 @@ return {
 
 
 def place_order(market: str, token_id: str, side: str, price: float) -> bool:
-"""Place a $0.50 order on the given market."""
+   """Place a $0.50 order on the given market."""
 try:
 if price <= 0 or price >= 1:
 log.warning(f"Skipping trade — unusual price: {price}")
