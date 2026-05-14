@@ -1,11 +1,11 @@
-“””
+"""
 Polymarket Copy Trading Bot
 
 Copies trades from multiple target wallets.
 Fixed trade size: $0.50 per trade.
 Risk mode: Copy everything (no filters).
 Poll interval: 3 seconds.
-“””
+"""
 
 import os
 import time
@@ -18,11 +18,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PRIVATE_KEY = os.environ[“PRIVATE_KEY”]
+PRIVATE_KEY = os.environ["PRIVATE_KEY"]
 
 TARGET_WALLETS = [
-“0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82”,
-“0x89b5cdaaa4866c1e738406712012a630b4078beb”,
+"0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82",
+"0x89b5cdaaa4866c1e738406712012a630b4078beb",
 ]
 
 TRADE_SIZE_USD         = 0.50
@@ -30,15 +30,15 @@ POLL_INTERVAL          = 3
 WALLET_DELAY           = 0.5
 REQUEST_TIMEOUT        = 5
 MAX_CONSECUTIVE_ERRORS = 10
-CLOB_HOST              = “https://clob.polymarket.com”
-DATA_API               = “https://data-api.polymarket.com”
+CLOB_HOST              = "https://clob.polymarket.com"
+DATA_API               = "https://data-api.polymarket.com"
 
 logging.basicConfig(
 level=logging.INFO,
-format=”%(asctime)s [%(levelname)s] %(message)s”,
-datefmt=”%Y-%m-%d %H:%M:%S”,
+format="%(asctime)s [%(levelname)s] %(message)s",
+datefmt="%Y-%m-%d %H:%M:%S",
 )
-log = logging.getLogger(**name**)
+log = logging.getLogger__name__)
 
 client = ClobClient(
 host=CLOB_HOST,
@@ -50,13 +50,12 @@ seen_trade_ids: set = set()
 consecutive_errors: dict = {w: 0 for w in TARGET_WALLETS}
 
 def get_recent_trades(wallet: str) -> list:
-“”“Fetch recent trades for a wallet using the Polymarket data API.”””
+"""Fetch recent trades for a wallet using the Polymarket data API"""
 endpoints = [
-f”{DATA_API}/trades?maker={wallet}&limit=10”,
-f”{DATA_API}/activity?user={wallet}&limit=10”,
+f"{DATA_API}/trades?maker={wallet}&limit=10",
+f"{DATA_API}/activity?user={wallet}&limit=10",
 ]
-
-```
+'''
 for url in endpoints:
     try:
         resp = requests.get(url, timeout=REQUEST_TIMEOUT)
@@ -88,18 +87,16 @@ for url in endpoints:
         log.error(f"Error fetching trades for {wallet[:8]}...: {e}")
 
 return []
-```
 
 def extract_trade_fields(trade: dict):
-“”“Normalize a trade object into the fields we need.”””
+"""Normalize a trade object into the fields we need."""
 token_id = (
-trade.get(“asset_id”)
-or trade.get(“tokenId”)
-or trade.get(“token_id”)
-or trade.get(“outcomeIndex”)
+trade.get("asset_id")
+or trade.get("tokenId")
+or trade.get("token_id")
+or trade.get("outcomeIndex")
 )
 
-```
 side = (
     trade.get("side")
     or trade.get("type")
@@ -151,16 +148,16 @@ return {
     "side":     side,
     "price":    price,
 }
-```
+
 
 def place_order(market: str, token_id: str, side: str, price: float) -> bool:
-“”“Place a $0.50 order on the given market.”””
+"""Place a $0.50 order on the given market."""
 try:
 if price <= 0 or price >= 1:
-log.warning(f”Skipping trade — unusual price: {price}”)
+log.warning(f"Skipping trade — unusual price: {price}")
 return False
 
-```
+
     size = round(TRADE_SIZE_USD / price, 4)
 
     order_args = OrderArgs(
@@ -183,13 +180,11 @@ return False
 except Exception as e:
     log.error(f"Failed to place order on {market}: {e}")
     return False
-```
 
-def process_trade(trade: dict, source_wallet: str):
-“”“Evaluate and copy a single trade if it is new.”””
+
+def process_trade(trade: dict, source_wallet: str):"""Evaluate and copy a single trade if it is new."""
 fields = extract_trade_fields(trade)
 
-```
 if not fields:
     return
 
@@ -208,13 +203,13 @@ log.info(
 )
 
 place_order(fields["market"], fields["token_id"], fields["side"], fields["price"])
-```
+
 
 def copy_trades():
 “”“Poll each target wallet and copy any new trades.”””
 for wallet in TARGET_WALLETS:
 
-```
+
     if consecutive_errors[wallet] >= MAX_CONSECUTIVE_ERRORS:
         log.warning(f"{wallet[:8]}... has too many errors — skipping cycle.")
         continue
@@ -227,27 +222,27 @@ for wallet in TARGET_WALLETS:
             process_trade(trade, wallet)
 
     time.sleep(WALLET_DELAY)
-```
+
 
 def seed_seen_trades():
-“”“Mark all existing trades as seen on startup.”””
-log.info(“Seeding seen trades to avoid copying historical activity…”)
+"""Mark all existing trades as seen on startup."""
+log.info("Seeding seen trades to avoid copying historical activity…")
 for wallet in TARGET_WALLETS:
 trades = get_recent_trades(wallet)
 for trade in trades:
 fields = extract_trade_fields(trade)
 if fields:
-seen_trade_ids.add(fields[“trade_id”])
+seen_trade_ids.add(fields["trade_id"])
 time.sleep(WALLET_DELAY)
-log.info(f”Seeded {len(seen_trade_ids)} existing trade ID(s).”)
+log.info(f"Seeded {len(seen_trade_ids)} existing trade ID(s).")
 
-if **name** == “**main**”:
-log.info(“Polymarket Copy Bot starting up…”)
-log.info(f”Watching wallets: {[w[:8] + ‘…’ for w in TARGET_WALLETS]}”)
-log.info(f”Fixed trade size: ${TRADE_SIZE_USD}”)
-log.info(f”Poll interval: {POLL_INTERVAL}s”)
+if __name__ == "__main__":
+log.info("Polymarket Copy Bot starting up…")
+log.info(f"Watching wallets: {[w[:8] + '…' for w in TARGET_WALLETS]}")
+log.info(f"Fixed trade size: ${TRADE_SIZE_USD}")
+log.info(f"Poll interval: {POLL_INTERVAL}s")
 
-```
+
 seed_seen_trades()
 
 log.info(f"Bot running. Polling every {POLL_INTERVAL} seconds.")
@@ -258,4 +253,3 @@ while True:
     elapsed = time.time() - start
     sleep_time = max(0, POLL_INTERVAL - elapsed)
     time.sleep(sleep_time)
-```
