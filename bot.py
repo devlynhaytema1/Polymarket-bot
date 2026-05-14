@@ -21,8 +21,8 @@ load_dotenv()
 PRIVATE_KEY = os.environ["PRIVATE_KEY"]
 
 TARGET_WALLETS = [
-    "0x3a847382ad6fff9be1db4e073fd9b869f6884d44",
-    "0xe1d6b51521bd4365769199f392f9818661bd907c",
+    "0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82",
+    "0x89b5cdaaa4866c1e738406712012a630b4078beb",
 ]
 
 TRADE_SIZE_USD         = 0.50
