@@ -50,7 +50,7 @@ seen_trade_ids: set = set()
 consecutive_errors: dict = {w: 0 for w in TARGET_WALLETS}
 
 def get_recent_trades(wallet: str) -> list:
-"""Fetch recent trades for a wallet using the Polymarket data API"""
+   """Fetch recent trades for a wallet using the Polymarket data API"""
 endpoints = [
 f"{DATA_API}/trades?maker={wallet}&limit=10",
 f"{DATA_API}/activity?user={wallet}&limit=10",
