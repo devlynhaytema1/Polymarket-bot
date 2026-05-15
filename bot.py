@@ -6,13 +6,13 @@
  Poll interval: 3 seconds.
  """
 import os
- import time
- import logging
- import requests
- from py_clob_client.client import ClobClient
- from py_clob_client.clob_types import OrderArgs, OrderType
- from py_clob_client.constants import POLYGON
- from dotenv import load_dotenv
+import time
+import logging
+import requests
+from py_clob_client.client import ClobClient
+from py_clob_client.clob_types import OrderArgs, OrderType
+from py_clob_client.constants import POLYGON
+from dotenv import load_dotenv
  load_dotenv()
  PRIVATE_KEY = os.environ["PRIVATE_KEY"]
  TARGET_WALLETS = [
