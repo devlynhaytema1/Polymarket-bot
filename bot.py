@@ -13,26 +13,26 @@ from py_clob_client.client import ClobClient
 from py_clob_client.clob_types import OrderArgs, OrderType
 from py_clob_client.constants import POLYGON
 from dotenv import load_dotenv
- load_dotenv()
- PRIVATE_KEY = os.environ["PRIVATE_KEY"]
- TARGET_WALLETS = [
+load_dotenv()
+PRIVATE_KEY = os.environ["PRIVATE_KEY"]
+TARGET_WALLETS = [
     "0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82",
     "0x89b5cdaaa4866c1e738406712012a630b4078beb",
  ]
- TRADE_SIZE_USD         = 0.50
- POLL_INTERVAL          = 3
- WALLET_DELAY           = 0.5
- REQUEST_TIMEOUT        = 5
- MAX_CONSECUTIVE_ERRORS = 10
- CLOB_HOST              = "https://clob.polymarket.com"
- DATA_API               = "https://data-api.polymarket.com"
- logging.basicConfig(
+TRADE_SIZE_USD         = 0.50
+POLL_INTERVAL          = 3
+WALLET_DELAY           = 0.5
+REQUEST_TIMEOUT        = 5
+MAX_CONSECUTIVE_ERRORS = 10
+CLOB_HOST              = "https://clob.polymarket.com"
+DATA_API               = "https://data-api.polymarket.com"
+logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
  )
- log = logging.getLogger(__name__)
- client = ClobClient(
+log = logging.getLogger(__name__)
+client = ClobClient(
     host=CLOB_HOST,
 )
     key=PRIVATE_KEY,
