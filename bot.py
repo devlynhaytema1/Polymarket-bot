@@ -163,7 +163,7 @@ def process_trade(trade: dict, source_wallet: str):
         f"| Price: {fields['price']}"
     )
     place_order(fields["market"], fields["token_id"], fields["side"], fields["price"])
- def copy_trades():
+def copy_trades():
     """Poll each target wallet and copy any new trades."""
     for wallet in TARGET_WALLETS:
         if consecutive_errors[wallet] >= MAX_CONSECUTIVE_ERRORS:
@@ -175,7 +175,7 @@ def process_trade(trade: dict, source_wallet: str):
             if fields and fields["trade_id"] not in seen_trade_ids:
                 process_trade(trade, wallet)
         time.sleep(WALLET_DELAY)
- def seed_seen_trades():
+def seed_seen_trades():
     """Mark all existing trades as seen on startup."""
     log.info("Seeding seen trades to avoid copying historical activity...")
     for wallet in TARGET_WALLETS:
@@ -186,7 +186,7 @@ def process_trade(trade: dict, source_wallet: str):
                 seen_trade_ids.add(fields["trade_id"])
         time.sleep(WALLET_DELAY)
     log.info(f"Seeded {len(seen_trade_ids)} existing trade ID(s).")
- if __name__ == "__main__":
+if __name__ == "__main__":
     log.info("Polymarket Copy Bot starting up...")
     log.info(f"Watching wallets: {[w[:8] + '...' for w in TARGET_WALLETS]}")
     log.info(f"Fixed trade size: ${TRADE_SIZE_USD}")
