@@ -1,10 +1,10 @@
 """
- Polymarket Copy Trading Bot
- Copies trades from multiple target wallets.
- Fixed trade size: $0.25 per trade.
- Risk mode: Copy everything (no filters).
- Poll interval: 3 seconds.
- """
+Polymarket Copy Trading Bot
+Copies trades from multiple target wallets.
+Fixed trade size: $0.25 per trade.
+Risk mode: Copy everything (no filters).
+Poll interval: 3 seconds.
+"""
 import os
 import time
 import logging
