@@ -19,7 +19,7 @@ TARGET_WALLETS = [
     "0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82",
     "0x89b5cdaaa4866c1e738406712012a630b4078beb",
  ]
-TRADE_SIZE_USD         = 0.50
+TRADE_SIZE_USD         = 0.25
 POLL_INTERVAL          = 3
 WALLET_DELAY           = 0.5
 REQUEST_TIMEOUT        = 5
