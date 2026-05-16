@@ -71,11 +71,14 @@ def get_recent_trades(wallet: str) -> list:
             log.error(f"Error fetching trades for {wallet[:8]}...: {e}")
     return []
 def extract_trade_fields(trade: dict):
+    log.info(f"raw trade keys: {list(trade.keys())}")
+    log.info(r"raw trade keys: { {k: trade[k] for k in list(trade.keys())[:6]} }")
     """Normalize a trade object into the fields we need."""
     token_id = (
         trade.get("asset_id")
         or trade.get("tokenId")
         or trade.get("token_id")
+        or trade.get("outcome_index")
         or trade.get("outcomeIndex")
     )
     side = (
