@@ -18,7 +18,7 @@ PRIVATE_KEY = os.environ["PRIVATE_KEY"]
 TARGET_WALLETS = [
     "0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82",
     "0x89b5cdaaa4866c1e738406712012a630b4078beb",
- ]
+]
 TRADE_SIZE_USD         = 0.25
 POLL_INTERVAL          = 3
 WALLET_DELAY           = 0.5
@@ -30,7 +30,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
- )
+)
 log = logging.getLogger(__name__)
 client = ClobClient(
     host=CLOB_HOST,
