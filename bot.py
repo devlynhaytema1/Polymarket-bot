@@ -75,11 +75,10 @@ def extract_trade_fields(trade: dict):
     log.info(r"raw trade keys: { {k: trade[k] for k in list(trade.keys())[:6]} }")
     """Normalize a trade object into the fields we need."""
     token_id = (
-        trade.get("asset_id")
-        or trade.get("tokenId")
+        trade.get("asset")
+        or trade.get("asset_id")
+        or trade.get("tokenid")
         or trade.get("token_id")
-        or trade.get("outcome_index")
-        or trade.get("outcomeIndex")
     )
     side = (
         trade.get("side")
