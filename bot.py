@@ -45,8 +45,8 @@ consecutive_errors: dict = {w: 0 for w in TARGET_WALLETS}
 def get_recent_trades(wallet: str) -> list:
     """Fetch recent trades for a wallet using the Polymarket data API."""
     endpoints = [
-        f"{DATA_API}/trades?maker={wallet}&limit=10",
-        f"{DATA_API}/activity?user={wallet}&limit=10",
+        f"{DATA_API}/trades?maker={wallet}&limit=25",
+        f"{DATA_API}/activity?user={wallet}&limit=25",
     ]
     for url in endpoints:
         try:
@@ -144,6 +144,7 @@ def process_trade(trade: dict, source_wallet: str):
 def copy_trades():
     """Poll each target wallet and copy any new trades."""
     for wallet in TARGET_WALLETS:
+        log.info(f"polling {wallet[:8]}...")
         if consecutive_errors[wallet] >= MAX_CONSECUTIVE_ERRORS:
             log.warning(f"{wallet[:8]}... has too many errors — skipping cycle.")
             continue
