@@ -16,8 +16,8 @@ from dotenv import load_dotenv
 load_dotenv()
 PRIVATE_KEY = os.environ["PRIVATE_KEY"]
 TARGET_WALLETS = [
-    "0xb27bc932bf8110d8f78e55da7d5f0497a18b5b82",
-    "0x89b5cdaaa4866c1e738406712012a630b4078beb",
+    "0x51ef3e5e7d5a3151c7caf165079270dbe905cda1",
+    "0x06dc51826bc524d9a83770e7de9dd7e005b04524",
 ]
 TRADE_SIZE_USD         = 0.25
 POLL_INTERVAL          = 3
