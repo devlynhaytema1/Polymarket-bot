@@ -71,53 +71,26 @@ def get_recent_trades(wallet: str) -> list:
             log.error(f"Error fetching trades for {wallet[:8]}...: {e}")
     return []
 def extract_trade_fields(trade: dict):
-    log.info(f"raw trade keys: {list(trade.keys())}")
-    log.info(r"raw trade keys: { {k: trade[k] for k in list(trade.keys())[:6]} }")
-    """Normalize a trade object into the fields we need."""
-    token_id = (
-        trade.get("asset")
-        or trade.get("asset_id")
-        or trade.get("tokenid")
-        or trade.get("token_id")
-    )
-    side = (
-        trade.get("side")
-        or trade.get("type")
-        or trade.get("tradeType")
-        or trade.get("outcome")
-    )
+    token_id = trade.get("asset")
+    side = trade.get("side")
     if side:
         side = str(side).upper()
         if side in ("BUY", "LONG", "YES"):
             side = "BUY"
         elif side in ("SELL", "SHORT", "NO"):
             side = "SELL"
-        else:
-            side = None
-    price = (
-        trade.get("price")
-        or trade.get("avgPrice")
-        or trade.get("executionPrice")
-    )
-    market = (
-        trade.get("market")
-        or trade.get("conditionId")
-        or trade.get("marketId")
-        or trade.get("condition_id")
-        or "unknown"
-    )
-    trade_id = (
-        trade.get("id")
-        or trade.get("tradeId")
-        or trade.get("transactionHash")
-        or trade.get("txHash")
-    )
+        side = NONE
+    price = trade.get("price")
+    market = trade.get("conditionId") or "unknown"
+    trade_id = trade.get("transactionHash")
+
     if not all([token_id, side, price, trade_id]):
         return None
     try:
         price = float(price)
     except (ValueError, TypeError):
-        return None
+        return none
+
     return {
         "trade_id": str(trade_id),
         "market":   market,
