@@ -79,7 +79,7 @@ def extract_trade_fields(trade: dict):
             side = "BUY"
         elif side in ("SELL", "SHORT", "NO"):
             side = "SELL"
-        side = NONE
+        side = None
     price = trade.get("price")
     market = trade.get("conditionId") or "unknown"
     trade_id = trade.get("transactionHash")
