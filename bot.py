@@ -46,7 +46,7 @@ def get_recent_trades(wallet: str) -> list:
     """Fetch recent trades for a wallet using the Polymarket data API."""
     endpoints = [
         f"{DATA_API}/trades?maker={wallet}&limit=25",
-        f"{DATA_API}/trade?proxywallet={wallet}&limit=25
+        f"{DATA_API}/trades?proxywallet={wallet}&limit=25
         f"{DATA_API}/activity?user={wallet}&limit=25",
     ]
     for url in endpoints:
