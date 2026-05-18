@@ -131,6 +131,7 @@ def place_order(market: str, token_id: str, side: str, price: float) -> bool:
 def process_trade(trade: dict, source_wallet: str):
     """Evaluate and copy a single trade if it is new."""
     fields = extract_trade_fields(trade)
+    log.info(f"Fields result: {fields}")
     if not fields:
         return
     trade_id = fields["trade_id"]
