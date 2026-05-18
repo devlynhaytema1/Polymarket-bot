@@ -90,6 +90,7 @@ def extract_trade_fields(trade: dict):
     market = trade.get("conditionId") or "unknown"
     trade_id = trade.get("transactionHash")
 
+    log.info(f"validation: token_id={bool(token_id)} side={side} price={bool(price)} trade_id={bool(trade_id)}")
     if not all([token_id, side, price, trade_id]):
         return None
     try:
