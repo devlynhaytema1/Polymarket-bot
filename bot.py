@@ -154,8 +154,7 @@ def copy_trades():
             continue
         trades = get_recent_trades(wallet)
         for trade in trades:
-            fields = extract_trade_fields(trade)
-            if fields and fields["trade_id"] not in seen_trade_ids:
+                log.info(f"Trade found, processing...")
                 process_trade(trade, wallet)
         time.sleep(WALLET_DELAY)
 def seed_seen_trades():
