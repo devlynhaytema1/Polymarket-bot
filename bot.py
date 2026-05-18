@@ -80,11 +80,13 @@ def extract_trade_fields(trade: dict):
     token_id = trade.get("asset")
     side = trade.get("side")
     if side:
-        side = str(side).upper()
-        if side in ("BUY", "LONG", "YES"):
+        side = str(side).strip().upper()
+        if "BUY" in side or "LONG" in side or "YES" in side:
             side = "BUY"
-        elif side in ("SELL", "SHORT", "NO"):
+        elif "SELL" in side or "SHORT" in side or "NO" in side:
             side = "SELL"
+        else:
+            log.info(f"unknown side value: '{side}'")
         side = None
     price = trade.get("price")
     market = trade.get("conditionId") or "unknown"
