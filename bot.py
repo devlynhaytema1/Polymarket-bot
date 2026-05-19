@@ -68,6 +68,10 @@ def get_recent_trades(wallet: str) -> list:
             consecutive_errors[wallet] += 1
             log.warning(f"Timeout for {wallet[:8]}... (error #{consecutive_errors[wallet]})")
         except Exception as e:
+            import traceback
+            log.error(f"failed to place orderon {market}: {e}")
+            log.error(traceback.format_exc())
+            return False
             consecutive_errors[wallet] += 1
             log.error(f"Error fetching trades for {wallet[:8]}...: {e}")
     return []
