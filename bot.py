@@ -16,13 +16,10 @@ from dotenv import load_dotenv
 load_dotenv()
 PRIVATE_KEY = os.environ["PRIVATE_KEY"]
 TARGET_WALLETS = [
-    "0x51ef3e5e7d5a3151c7caf165079270dbe905cda1",
-    "0x06dc51826bc524d9a83770e7de9dd7e005b04524",
     "0x8c901f67b036b5eebab4e1f2f904b8676743a904",
-    "0x6a8d1709bfb718d8555d315a983c4816278350f9",
-    "0x937bcac3a8a30c07d827ad0550c3fe3a6756bfab",
+    
 ]
-TRADE_SIZE_USD         = 0.25
+TRADE_SIZE_USD         = 0.50
 POLL_INTERVAL          = 3
 WALLET_DELAY           = 0.5
 REQUEST_TIMEOUT        = 5
@@ -79,15 +76,22 @@ def extract_trade_fields(trade: dict):
     log.info(f"processing trade: side={trade.get('side')} asset={trade.get('asset')} price={trade.get('price')} txHash={trade.get('transactionHash')}")
     token_id = trade.get("asset")
     side = trade.get("side")
+    side = (
+        trade.get("side")
+        or trade.get("outcome")
+        or trade.get("type")
+    )
     if side:
         side = str(side).strip().upper()
-        if "BUY" in side or "LONG" in side or "YES" in side:
+        if "BUY" in side or "SHORT" in side or "NO" in side:
             side = "BUY"
         elif "SELL" in side or "SHORT" in side or "NO" in side:
             side = "SELL"
         else:
-            log.info(f"unknown side value: '{side}'")
-        side = None
+            log.info(f"Unknown side value: '{side}'")
+    else:
+        log.info(f"No side field found in trade keys: {list(trade.keys())}")
+        side = "BUY"
     price = trade.get("price")
     market = trade.get("conditionId") or "unknown"
     trade_id = trade.get("transactionHash")
