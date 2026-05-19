@@ -178,7 +178,7 @@ def seed_seen_trades():
 if __name__ == "__main__":
     log.info("Polymarket Copy Bot starting up...")
     log.info(f"Watching wallets: {[w[:8] + '...' for w in TARGET_WALLETS]}")
-    log.info(f"Fixed trade size: ${TRADE_SIZE_USD}")
+    log.info(f"Fixed trade size: {TRADE_SIZE_SHARES} shares per trade")
     log.info(f"Poll interval: {POLL_INTERVAL}s")
     # seed_seen_trades()
     log.info(f"Bot running. Polling every {POLL_INTERVAL} seconds.")
