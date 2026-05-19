@@ -34,8 +34,9 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 client = ClobClient(
     host=CLOB_HOST,
-key=PRIVATE_KEY,
-chain_id=POLYGON,
+    key=PRIVATE_KEY,
+    chain_id=POLYGON,
+    funder=os.environ["POLYMARKET_ADDRESS"],
 )
 seen_trade_ids: set = set()
 consecutive_errors: dict = {w: 0 for w in TARGET_WALLETS}
