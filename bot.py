@@ -143,6 +143,7 @@ def process_trade(trade: dict, source_wallet: str):
         return
     trade_id = fields["trade_id"]
     if trade_id in seen_trade_ids:
+        log.info(f"Trade already seen, skipping")
         return
     seen_trade_ids.add(trade_id)
     log.info(
