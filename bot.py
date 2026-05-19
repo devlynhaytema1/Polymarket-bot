@@ -151,7 +151,7 @@ def process_trade(trade: dict, source_wallet: str):
         f"| Side: {fields['side']} "
         f"| Price: {fields['price']}"
     )
-    success = place_order(fields["market], fields[token_id"], fields["side"], fields["price"])
+    success = place_order(fields["market"], fields["token_id"], fields["side"], fields["price"])
     if success:
         seen_trade_ids.add(trade_id)
 def copy_trades():
