@@ -149,7 +149,6 @@ def process_trade(trade: dict, source_wallet: str):
     trade_id = fields["trade_id"]
     if trade_id in seen_trade_ids:
         return
-    seen_trade_ids.add(trade_id)
     log.info(
         f"New trade from {source_wallet[:8]}... "
         f"| Market: {fields['market']} "
