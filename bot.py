@@ -19,7 +19,7 @@ TARGET_WALLETS = [
     "0x8c901f67b036b5eebab4e1f2f904b8676743a904",
     
 ]
-TRADE_SIZE_USD         = 0.50
+TRADE_SIZE_SHARES      = 5
 POLL_INTERVAL          = 3
 WALLET_DELAY           = 0.5
 REQUEST_TIMEOUT        = 5
@@ -117,7 +117,7 @@ def place_order(market: str, token_id: str, side: str, price: float) -> bool:
         if price <= 0 or price >= 1:
             log.warning(f"Skipping trade — unusual price: {price}")
             return False
-        size = round(TRADE_SIZE_USD / price, 4)
+        size = TRADE_SIZE_SHARES
         order_args = OrderArgs(
             token_id=token_id,
             price=price,
