@@ -143,7 +143,6 @@ def process_trade(trade: dict, source_wallet: str):
         return
     trade_id = fields["trade_id"]
     if trade_id in seen_trade_ids:
-        log.info(f"Trade already seen, skipping")
         return
     seen_trade_ids.add(trade_id)
     log.info(
@@ -152,7 +151,9 @@ def process_trade(trade: dict, source_wallet: str):
         f"| Side: {fields['side']} "
         f"| Price: {fields['price']}"
     )
-    place_order(fields["market"], fields["token_id"], fields["side"], fields["price"])
+    success = place_order(fields["market], fields[token_id"], fields["side"], fields["price"])
+    if success:
+        seen_trade_ids.add(trade_id)
 def copy_trades():
     """Poll each target wallet and copy any new trades."""
     for wallet in TARGET_WALLETS:
