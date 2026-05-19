@@ -117,8 +117,9 @@ def extract_trade_fields(trade: dict):
     }
 def place_order(market: str, token_id: str, side: str, price: float) -> bool:
     """Place a $0.25 order on the given market."""
+    log.info(f"attempting order: {side} {token_id[:8]}... at {price}")
     try:
-        if price <= 0 or price >= 1:
+        if price <= 0 or price > 1:
             log.warning(f"Skipping trade — unusual price: {price}")
             return False
         size = TRADE_SIZE_SHARES
