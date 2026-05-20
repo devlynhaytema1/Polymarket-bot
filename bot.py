@@ -38,6 +38,8 @@ client = ClobClient(
     chain_id=POLYGON,
     funder=os.environ["POLYMARKET_ADDRESS"],
 )
+api_creds = client.create_or_derive_api_creds()
+client.set_api_creds(api_creds)
 seen_trade_ids: set = set()
 consecutive_errors: dict = {w: 0 for w in TARGET_WALLETS}
 def get_recent_trades(wallet: str) -> list:
