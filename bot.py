@@ -19,6 +19,7 @@ TARGET_WALLETS = [
     "0x8c901f67b036b5eebab4e1f2f904b8676743a904",
     
 ]
+PAPER_TRADING = True
 TRADE_SIZE_SHARES      = 5
 POLL_INTERVAL          = 3
 WALLET_DELAY           = 0.5
@@ -119,13 +120,19 @@ def extract_trade_fields(trade: dict):
         "price":    price,
     }
 def place_order(market: str, token_id: str, side: str, price: float) -> bool:
-    """Place a $0.25 order on the given market."""
+    """Place an order on the given market."""
     log.info(f"attempting order: {side} {token_id[:8]}... at {price}")
     try:
         if price <= 0 or price > 1:
             log.warning(f"Skipping trade — unusual price: {price}")
             return False
         size = TRADE_SIZE_SHARES
+        if PAPER_TRADING:
+            log.info(
+                f"PAPER_TRADE | Market: {market} | Side: {side} "
+                f"| Price: {price} | Size: {size} shares (${round(size * price, 2)})"
+            )
+            return True
         order_args = OrderArgs(
             token_id=token_id,
             price=price,
