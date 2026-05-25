@@ -165,11 +165,11 @@ def process_trade(trade: dict, source_wallet: str):
     success = place_order(fields["market"], fields["token_id"], fields["side"], fields["price"])
     if success:
         seen_trade_ids.add(trade_id)
-        if len(seen_trade_ids) > 100:
-            seen_trade_ids.pop()
+        if len(seen_trade_ids) > 500:
+            oldest = next(iter(seen_trade_ids))
+            seen_trade_ids.discard(oldest)
 def copy_trades():
     """Poll each target wallet and copy any new trades."""
-    seen_trade_ids.clear()
     for wallet in TARGET_WALLETS:
         log.info(f"polling {wallet[:8]}...")
         if consecutive_errors[wallet] >= MAX_CONSECUTIVE_ERRORS:
