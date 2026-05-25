@@ -110,7 +110,7 @@ def extract_trade_fields(trade: dict):
     try:
         price = float(price)
     except (ValueError, TypeError):
-        return none
+        return None
 
     return {
         "trade_id": str(trade_id),
@@ -148,6 +148,7 @@ def place_order(market: str, token_id: str, side: str, price: float) -> bool:
         log.info(f"Response: {response}")
         return True
     except Exception as e:
+        consecutive_errors[wallet] += 1
         log.error(f"Failed to place order on {market}: {e}")
         return False
 def process_trade(trade: dict, source_wallet: str):
