@@ -91,7 +91,7 @@ def extract_trade_fields(trade: dict):
     )
     if side:
         side = str(side).strip().upper()
-        if "BUY" in side or "SHORT" in side or "NO" in side:
+        if "BUY" in side or "LONG" in side or "YES" in side:
             side = "BUY"
         elif "SELL" in side or "SHORT" in side or "NO" in side:
             side = "SELL"
