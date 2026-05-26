@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 PRIVATE_KEY = os.environ["PRIVATE_KEY"]
 TARGET_WALLETS = [
-    "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4",
+    "0xeebde7a0e019a63e6b476eb425505b7b3e6eba300xcf",
     
 ]
 PAPER_TRADING = True
