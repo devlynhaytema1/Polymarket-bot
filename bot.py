@@ -125,9 +125,9 @@ def place_order(market: str, token_id: str, side: str, price: float) -> bool:
             return False
         size = TRADE_SIZE_SHARES
         if PAPER_TRADING:
-            if side = "BUY":
+            if side == "BUY":
                 positions[market] = positions.get(market, 0) + size
-            elif side = "SELL":
+            elif side == "SELL":
                 positions[market] = positions.get(market, 0) - size
             log.info(
                 f"PAPER_TRADE | Market: {market} | Side: {side} "
