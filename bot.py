@@ -42,6 +42,7 @@ client = ClobClient(
 api_creds = client.create_or_derive_api_creds()
 client.set_api_creds(api_creds)
 seen_trade_ids: set = set()
+positions: dict = {} # market -> total shares held
 consecutive_errors: dict = {w: 0 for w in TARGET_WALLETS}
 def get_recent_trades(wallet: str) -> list:
     """Fetch recent trades for a wallet using the Polymarket data API."""
@@ -124,10 +125,15 @@ def place_order(market: str, token_id: str, side: str, price: float) -> bool:
             return False
         size = TRADE_SIZE_SHARES
         if PAPER_TRADING:
+            if side = "BUY":
+                positions[market] = positions.get(market, 0) + size
+            elif side = "SELL":
+                positions[market] = positions.get(market, 0) - size
             log.info(
                 f"PAPER_TRADE | Market: {market} | Side: {side} "
                 f"| Price: {price} | Size: {size} shares (${round(size * price, 2)})"
             )
+            log.info(f"POSITION UPDATE | Market: {market[:10]}... | Total shares: {positions.get(market, 0)}")
             return True
         order_args = OrderArgs(
             token_id=token_id,
