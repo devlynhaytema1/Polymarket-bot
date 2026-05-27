@@ -19,7 +19,7 @@ TARGET_WALLETS = [
     "0xeebde7a0e019a63e6b476eb425505b7b3e6eba300xcf",
     
 ]
-PAPER_TRADING = True
+PAPER_TRADING = False
 TRADE_SIZE_SHARES      = 5
 POLL_INTERVAL          = 3
 WALLET_DELAY           = 0.5
